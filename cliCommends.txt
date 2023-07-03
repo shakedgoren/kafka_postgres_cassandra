@@ -1,0 +1,100 @@
+Kafka:
+
+Run the server:
+bin/zookeeper-server-start.sh config/zookeeper.properties
+bin/kafka-server-start.sh config/server.properties
+
+Create new topic (only if I need new!):
+bin/kafka-topics.sh --create --topic my-topic --bootstrap-server localhost:9092
+
+Show all topics: 
+bin/kafka-topics.sh --bootstrap-server localhost:9092 –list
+
+Show data that exists on the server in topic:
+bin/kafka-console-consumer.sh --topic my-topic --from-beginning --bootstrap-server localhost:9092
+
+Delete all data insaid topics:
+bin/kafka-topics.sh --bootstrap-server localhost:9092 --topic my-topic --delete
+
+Delete topic by name:
+bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic my-topic
+
+--------------------------------------------------------------------------
+
+Postgresql:
+
+Start server: sudo service postgresql start
+Stop server: sudo service postgresql stop
+Status server: sudo service postgresql status
+
+Connect postgresql:
+sudo -i -u postgres psql
+(password:postgres)
+
+Show DataBase:
+\list
+
+Show tables:
+\d
+
+Show data:
+select * from kafkadata;
+select count(*) from kafkadata;
+select * from kafkadata order by timeStamp;
+
+Insert data:
+insert into kafkadata values (0, '2023-06-21 08:28:00', 0, 'test');
+
+Update data:
+update kafkadata set message='this is a test check!' where orderId=1; 
+
+Delete all data: delete from kafkadata;
+Delete data by id: delete from kafkadata where id = 1;
+Delete DataBase: drop database postgres; 
+Delete table: drop table kafkadata;
+
+Create new DataBase:
+create database myNewDataBase;
+
+Connect to DataBase:
+\c myNewDataBase
+
+Create new table:
+create table test(orderId INT, timeStamp TIMESTAMP PRIMARY KEY, randomId INT, message VARCHAR(150));
+
+--------------------------------------------------------------------------
+
+Cassandra:
+
+Start server: sudo systemctl start cassandra
+Stop server: sudo systemctl stop cassandra
+Status server: sudo systemctl status cassandra
+
+Connect cassandra:
+cqlsh
+
+Create keyspace:
+create keyspace mydatabase with replication = {'class': 'SimpleStrategy','replication_factor':3}; 
+
+Use keyspace:
+use mydatabase;
+
+Create table:
+CREATE TABLE postgresdata (
+timeStamp timestamp,
+message text,
+PRIMARY KEY( timeStamp));
+
+Show data:
+select * from postgresdata;
+select count(*) from postgresdata;
+
+Insert data:
+insert into postgresdata(timeStamp, message) values ('2023-06-21 08:28:00', 'test');
+
+Update data:
+update postgresdata set message='this is a test check!' where timeStamp='2023-06-21 08:28:00'; 
+
+Delete table: drop table postgresdata;
+Delete all data: truncate table postgresdata;
+Delete data by id: delete from postgresdata where timeStamp='2023-06-21 08:28:00'; 
